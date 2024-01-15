@@ -13,3 +13,10 @@ unsigned int sign_extend(unsigned int number, int numbits){
 
     return number;
 }
+
+unsigned long sign_extendl(unsigned long number, int numbits){
+    if(number & (1ul << (numbits - 1)))
+        return number | ~((1ul << numbits) - 1ul);
+
+    return number;
+}

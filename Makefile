@@ -1,5 +1,6 @@
 CC=clang
 CFLAGS=-g
+#CFLAGS=-O3
 SRCDIR=source
 
 SOURCE_FILES = $(SRCDIR)/armadillo.c \
@@ -27,6 +28,9 @@ OBJECT_FILES = $(SRCDIR)/armadillo.o \
 armadillo : $(OBJECT_FILES)
 	$(CC) $(CFLAGS) -dynamiclib -o libarmadillo.dylib $(OBJECT_FILES)
 
+armadillo_static: $(OBJECT_FILES)
+	libtool -static -o libarmadillo.a $(OBJECT_FILES)
+
 driver85 : $(OBJECT_FILES) driver85.c linkedlist.c
 	$(MAKE) armadillo
 	$(CC) $(CFLAGS) -L. -larmadillo linkedlist.c driver85.c -o driver85
@@ -41,4 +45,4 @@ $(SRCDIR)/%.o : $(SRCDIR)/%.c $(SRCDIR)/%.h
 .PHONY: clean
 
 clean :
-	rm libarmadillo.dylib $(OBJECT_FILES)
+	rm -f libarmadillo.dylib libarmadillo.a $(OBJECT_FILES)
