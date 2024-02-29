@@ -1418,7 +1418,7 @@ static int DisassembleUnconditionalBranchImmInstr(struct instruction *i,
 
     ADD_IMM_OPERAND(out, AD_IMM_LONG, *(long *)&imm);
 
-    concat(&DECODE_STR(out), "%s "S_LX"", instr_s, S_LA(imm));
+    concat(&DECODE_STR(out), "%s 0x%lx", instr_s, imm);
 
     SET_INSTR_ID(out, instr_id);
 
